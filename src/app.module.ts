@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose/dist/mongoose.module';
-import { CollectionController } from './series/series.controller';
-import { ComicController } from './comic/comic.controller';
+import { ComicModule } from './comic/comic.module';
+import { SeriesModule } from './series/series.module';
 
 @Module({
-    imports: [MongooseModule.forRoot('mongodb://localhost/hq-control'), ComicController, CollectionController],
+    imports: [MongooseModule.forRoot('mongodb://localhost/hq-control'), ComicModule, SeriesModule],
     controllers: [],
     providers: [],
 })
