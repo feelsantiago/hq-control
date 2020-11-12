@@ -4,6 +4,8 @@ import { CollectionSchema } from '../collection/collection.schema';
 
 @Schema({ timestamps: true })
 export class Comic {
+    public id: string;
+
     @Prop({ required: true })
     public name: string;
 

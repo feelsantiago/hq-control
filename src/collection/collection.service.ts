@@ -8,23 +8,23 @@ import { Collection, CollectionDocument } from './collection.schema';
 export class CollectionService {
     constructor(@InjectModel(Collection.name) private readonly collectionModel: Model<CollectionDocument>) {}
 
-    public create(collection: CollectionDto): Promise<Collection> {
+    public async create(collection: CollectionDto): Promise<Collection> {
         return this.collectionModel.create(collection);
     }
 
-    public update(id: string, collection: Partial<CollectionDto>): Promise<Collection> {
+    public async update(id: string, collection: Partial<CollectionDto>): Promise<Collection> {
         return this.collectionModel.findByIdAndUpdate(id, { $set: collection }, { new: true }).exec();
     }
 
-    public getById(id: string): Promise<Collection> {
+    public async getById(id: string): Promise<Collection> {
         return this.collectionModel.findById(id).exec();
     }
 
-    public getAll(): Promise<Collection[]> {
+    public async getAll(): Promise<Collection[]> {
         return this.collectionModel.find().sort({ createdAt: -1 }).exec();
     }
 
-    public delete(id: string): Promise<Collection> {
+    public async delete(id: string): Promise<Collection> {
         return this.collectionModel.findByIdAndDelete(id).exec();
     }
 }

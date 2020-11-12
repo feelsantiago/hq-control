@@ -21,6 +21,7 @@ module.exports = {
         'plugin:unicorn/recommended',
     ],
     rules: {
+        'no-param-reassign': 'off',
         'no-unused-vars': 'off',
         'no-restricted-syntax': 'off',
         'func-names': 'off',
