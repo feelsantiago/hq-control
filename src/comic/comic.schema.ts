@@ -37,6 +37,9 @@ export class Comic {
     public like: boolean;
 
     @Prop({ default: false })
+    public reEdition: boolean;
+
+    @Prop({ default: false })
     public recommends: boolean;
 
     @Prop({ default: false })

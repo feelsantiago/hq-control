@@ -53,6 +53,10 @@ export class ComicDto {
     public reread: boolean;
 
     @IsOptional()
+    @IsBoolean()
+    public reEdition: boolean;
+
+    @IsOptional()
     @Type(() => Types.ObjectId)
     public owner: Types.ObjectId;
 
