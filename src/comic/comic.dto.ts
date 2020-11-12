@@ -1,7 +1,7 @@
 import { Type } from 'class-transformer';
 import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { Types } from 'mongoose';
-import { CollectionDto } from '../collection/collection.dto';
+import { SeriesDto } from '../series/series.dto';
 
 export class ComicDto {
     @IsNotEmpty()
@@ -66,7 +66,7 @@ export class ComicDto {
     public curiosities: string[];
 
     @IsOptional()
-    @Type(() => CollectionDto)
+    @Type(() => SeriesDto)
     @ValidateNested()
-    public collection: CollectionDto;
+    public series: SeriesDto;
 }

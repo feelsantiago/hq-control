@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Collection, Document, Types } from 'mongoose';
-import { CollectionSchema } from '../collection/collection.schema';
+import { Document, Types } from 'mongoose';
+import { Series, SeriesSchema } from '../series/series.schema';
 
 @Schema({ timestamps: true })
 export class Comic {
@@ -51,8 +51,8 @@ export class Comic {
     @Prop({ type: [String], default: [] })
     public curiosities: string[];
 
-    @Prop({ type: CollectionSchema })
-    public collection: Collection;
+    @Prop({ type: SeriesSchema })
+    public series: Series;
 }
 
 export type ComicDocument = Comic & Document;

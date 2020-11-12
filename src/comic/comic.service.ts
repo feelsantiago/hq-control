@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CollectionService } from '../collection/collection.service';
+import { SeriesService } from '../series/series.service';
 import { ComicDto } from './comic.dto';
 import { Comic, ComicDocument } from './comic.schema';
 
@@ -9,13 +9,13 @@ import { Comic, ComicDocument } from './comic.schema';
 export class ComicService {
     constructor(
         @InjectModel(Comic.name) private readonly comicModel: Model<ComicDocument>,
-        private readonly collectionService: CollectionService,
+        private readonly seriesService: SeriesService,
     ) {}
 
     public async create(comic: ComicDto): Promise<Comic> {
-        if (comic.collection && !comic.collection._id) {
-            const collection = await this.collectionService.create(comic.collection);
-            comic.collection._id = collection.id;
+        if (comic.series && !comic.series._id) {
+            const collection = await this.seriesService.create(comic.series);
+            comic.series._id = collection.id;
         }
 
         return this.comicModel.create(comic);

@@ -1,10 +1,10 @@
 import { IsNotEmpty, IsString, ValidateIf } from 'class-validator';
 
-export class CollectionDto {
+export class SeriesDto {
     @IsString()
     public _id: string;
 
-    @ValidateIf((collection: CollectionDto) => !collection._id)
+    @ValidateIf((series: SeriesDto) => !series._id)
     @IsString()
     @IsNotEmpty()
     public name: string;
