@@ -14,8 +14,13 @@ export class ComicService {
 
     public async create(comic: ComicDto): Promise<Comic> {
         if (comic.series && !comic.series._id) {
-            const collection = await this.seriesService.create(comic.series);
-            comic.series._id = collection.id;
+            const series = await this.seriesService.create(comic.series);
+            comic.series._id = series.id;
+        }
+
+        if (comic.series && comic.series._id) {
+            const series = await this.seriesService.getById(comic.series._id);
+            comic.series = series ? { _id: series.id, name: series.name } : undefined;
         }
 
         return this.comicModel.create(comic);
