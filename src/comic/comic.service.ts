@@ -20,7 +20,13 @@ export class ComicService {
 
         if (comic.series && comic.series._id) {
             const series = await this.seriesService.getById(comic.series._id);
-            comic.series = series ? { _id: series.id, name: series.name } : undefined;
+
+            if (comic.series.isCompleted && !series.isCompleted) {
+                await this.seriesService.update(series.id, { isCompleted: true });
+                series.isCompleted = true;
+            }
+
+            comic.series = series ? { _id: series.id, name: series.name, isCompleted: series.isCompleted } : undefined;
         }
 
         return this.comicModel.create(comic);
