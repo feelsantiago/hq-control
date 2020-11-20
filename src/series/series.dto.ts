@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, ValidateIf } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsOptional, IsString, ValidateIf } from 'class-validator';
 import { Types } from 'mongoose';
 
 export class SeriesDto {
@@ -10,6 +10,10 @@ export class SeriesDto {
     @IsString()
     @IsNotEmpty()
     public name: string;
+
+    @IsOptional()
+    @IsBoolean()
+    public isCompleted: boolean;
 
     public owner?: Types.ObjectId;
 }

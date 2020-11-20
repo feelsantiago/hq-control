@@ -10,6 +10,9 @@ export class Series {
 
     @Prop()
     public owner?: Types.ObjectId;
+
+    @Prop({ default: false })
+    public isCompleted: boolean;
 }
 
 export type SeriesDocument = Series & Document;
