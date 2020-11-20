@@ -20,6 +20,10 @@ export class UserService {
         return this.userModel.findById(id).exec();
     }
 
+    public async findUserByEmail(email: string): Promise<User> {
+        return this.userModel.findOne({ email }).select('+password').exec();
+    }
+
     public async getAll(): Promise<User[]> {
         return this.userModel.find().sort({ createdAt: -1 }).exec();
     }
