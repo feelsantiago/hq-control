@@ -76,6 +76,10 @@ export class ComicDto {
     public curiosities: string[];
 
     @IsOptional()
+    @IsString()
+    public critic: string;
+
+    @IsOptional()
     @Type(() => SeriesDto)
     @ValidateNested()
     public series: SeriesDto;

@@ -59,6 +59,9 @@ export class Comic {
     @Prop({ type: [String], default: [] })
     public curiosities: string[];
 
+    @Prop({ default: '' })
+    public critic: string;
+
     @Prop({ type: SeriesSchema })
     public series: Series;
 }
