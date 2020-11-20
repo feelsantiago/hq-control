@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsString, ValidateIf } from 'class-validator';
+import { Types } from 'mongoose';
 
 export class SeriesDto {
     @ValidateIf((series: SeriesDto) => !series.name)
@@ -9,4 +10,6 @@ export class SeriesDto {
     @IsString()
     @IsNotEmpty()
     public name: string;
+
+    public owner?: Types.ObjectId;
 }

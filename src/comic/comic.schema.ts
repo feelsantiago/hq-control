@@ -2,12 +2,20 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
 import { Series, SeriesSchema } from '../series/series.schema';
 
+export enum ComicType {
+    digital = 'Digital',
+    physical = 'Fisico',
+}
+
 @Schema({ timestamps: true })
 export class Comic {
     public id: string;
 
     @Prop({ required: true })
     public name: string;
+
+    @Prop({ enum: [ComicType.digital, ComicType.physical], default: ComicType.physical })
+    public type: ComicType;
 
     @Prop({ default: 0 })
     public number: number;

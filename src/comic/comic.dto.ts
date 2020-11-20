@@ -1,7 +1,17 @@
 import { Type } from 'class-transformer';
-import { IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
+import {
+    IsArray,
+    IsBoolean,
+    IsEnum,
+    IsNotEmpty,
+    IsNumber,
+    IsOptional,
+    IsString,
+    ValidateNested,
+} from 'class-validator';
 import { Types } from 'mongoose';
 import { SeriesDto } from '../series/series.dto';
+import { ComicType } from './comic.schema';
 
 export class ComicDto {
     @IsNotEmpty()
@@ -11,6 +21,10 @@ export class ComicDto {
     @IsOptional()
     @IsNumber()
     public number: number;
+
+    @IsOptional()
+    @IsEnum(ComicType)
+    public type: ComicType;
 
     @IsOptional()
     @IsString()
@@ -57,10 +71,6 @@ export class ComicDto {
     public reEdition: boolean;
 
     @IsOptional()
-    @Type(() => Types.ObjectId)
-    public owner: Types.ObjectId;
-
-    @IsOptional()
     @IsArray()
     @IsString({ each: true })
     public curiosities: string[];
@@ -69,4 +79,6 @@ export class ComicDto {
     @Type(() => SeriesDto)
     @ValidateNested()
     public series: SeriesDto;
+
+    public owner: Types.ObjectId;
 }

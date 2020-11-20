@@ -1,12 +1,15 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 @Schema({ timestamps: true })
 export class Series {
     public id?: string;
 
-    @Prop()
+    @Prop({ required: true })
     public name: string;
+
+    @Prop()
+    public owner?: Types.ObjectId;
 }
 
 export type SeriesDocument = Series & Document;
