@@ -36,16 +36,25 @@ export class ComicService {
         return this.comics.create(comic);
     }
 
-    public update(id: string, comic: Partial<ComicDto>): Promise<Comic> {
-        return this.comics.findByIdAndUpdate(id, { $set: comic }, { new: true }).exec();
+    public update(id: string, comic: Partial<ComicDto>, userId: string): Promise<Comic> {
+        return this.comics
+            .findOneAndUpdate(
+                { _id: Types.ObjectId(id), owner: Types.ObjectId(userId) },
+                { $set: comic },
+                { new: true },
+            )
+            .exec();
     }
 
-    public getById(id: string): Promise<Comic> {
-        return this.comics.findById(id).exec();
+    public getById(id: string, userId: string): Promise<Comic> {
+        return this.comics.findOne({ _id: Types.ObjectId(id), owner: Types.ObjectId(userId) }).exec();
     }
 
-    public getAll(): Promise<Comic[]> {
-        return this.comics.find().sort({ createdAt: -1 }).exec();
+    public getAll(userId: string): Promise<Comic[]> {
+        return this.comics
+            .find({ owner: Types.ObjectId(userId) })
+            .sort({ createdAt: -1 })
+            .exec();
     }
 
     public getComicsBySeries(seriesId: string, userId: string): Promise<Comic[]> {
@@ -55,7 +64,7 @@ export class ComicService {
             .exec();
     }
 
-    public delete(id: string): Promise<Comic> {
-        return this.comics.findByIdAndDelete(id).exec();
+    public delete(id: string, userId: string): Promise<Comic> {
+        return this.comics.findOneAndDelete({ _id: Types.ObjectId(id), owner: Types.ObjectId(userId) }).exec();
     }
 }
