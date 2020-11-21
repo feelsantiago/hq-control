@@ -33,7 +33,13 @@ export class ComicController {
         return this.comicService.getAll();
     }
 
-    public async getComicByCollectionId(): Promise<Comic[]> {}
+    @Get('series/:id')
+    public async getComicBySeriesId(
+        @Param('id') seriesId: string,
+        @UserSession() userInfo: UserInfo,
+    ): Promise<Comic[]> {
+        return this.comicService.getComicsBySeries(seriesId, userInfo.id);
+    }
 
     @Delete(':id')
     public async delete(@Param('id') id: string): Promise<Comic> {

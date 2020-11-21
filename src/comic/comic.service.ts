@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { SeriesService } from '../series/series.service';
 import { ComicDto } from './comic.dto';
 import { Comic, ComicDocument } from './comic.schema';
@@ -33,22 +33,29 @@ export class ComicService {
             comic.series = series ? { _id: series.id, name: series.name, isCompleted: series.isCompleted } : undefined;
         }
 
-        return this.comicModel.create(comic);
+        return this.comics.create(comic);
     }
 
     public update(id: string, comic: Partial<ComicDto>): Promise<Comic> {
-        return this.comicModel.findByIdAndUpdate(id, { $set: comic }, { new: true }).exec();
+        return this.comics.findByIdAndUpdate(id, { $set: comic }, { new: true }).exec();
     }
 
     public getById(id: string): Promise<Comic> {
-        return this.comicModel.findById(id).exec();
+        return this.comics.findById(id).exec();
     }
 
     public getAll(): Promise<Comic[]> {
-        return this.comicModel.find().sort({ createdAt: -1 }).exec();
+        return this.comics.find().sort({ createdAt: -1 }).exec();
+    }
+
+    public getComicsBySeries(seriesId: string, userId: string): Promise<Comic[]> {
+        return this.comics
+            .find({ 'series._id': Types.ObjectId(seriesId), owner: userId })
+            .select('-series')
+            .exec();
     }
 
     public delete(id: string): Promise<Comic> {
-        return this.comicModel.findByIdAndDelete(id).exec();
+        return this.comics.findByIdAndDelete(id).exec();
     }
 }
