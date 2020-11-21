@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
-import { Series } from '../series/series.schema';
 import { Comic } from '../comic/comic.schema';
 import { ComicService } from '../comic/comic.service';
 import { SeriesService } from '../series/series.service';
+import { UnCompletedSeriesReport } from './types/uncompleted-series-report';
 
 @Injectable()
 export class ReportService {
     constructor(private readonly comicService: ComicService, private readonly seriesService: SeriesService) {}
 
-    public async calculateUnCompletedSeriesTotalValue(userId: string): Promise<Array<Series & { total: number }>> {
+    public async calculateUnCompletedSeriesTotalValue(userId: string): Promise<UnCompletedSeriesReport[]> {
         const comics = await this.comicService.comics
             .find({
                 'series.isCompleted': false,
@@ -27,7 +27,7 @@ export class ReportService {
             }
         });
 
-        const total: Array<Series & { total: number }> = [];
+        const total: UnCompletedSeriesReport[] = [];
         seriesMap.forEach((comicsList) => {
             const { series } = comicsList[0];
             const sum = comicsList.reduce((acc, next) => acc + next.price, 0);
