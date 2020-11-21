@@ -15,22 +15,22 @@ export class UserController {
     }
 
     @Put(':id')
-    public update(@Param('id') id: string, @Body() user: UserDto): Promise<User> {
+    public async update(@Param('id') id: string, @Body() user: UserDto): Promise<User> {
         return this.userService.update(id, user);
     }
 
     @Get(':id')
-    public getById(@Param('id') id: string): Promise<User> {
+    public async getById(@Param('id') id: string): Promise<User> {
         return this.userService.getById(id);
     }
 
     @Get()
-    public getAll(): Promise<User[]> {
+    public async getAll(): Promise<User[]> {
         return this.userService.getAll();
     }
 
     @Delete(':id')
-    public delete(@Param('id') id: string): Promise<User> {
+    public async delete(@Param('id') id: string): Promise<User> {
         return this.userService.delete(id);
     }
 }

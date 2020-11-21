@@ -19,22 +19,22 @@ export class SeriesController {
     }
 
     @Put(':id')
-    public update(@Param('id') id: string, @Body() series: SeriesDto): Promise<Series> {
+    public async update(@Param('id') id: string, @Body() series: SeriesDto): Promise<Series> {
         return this.seriesService.update(id, series);
     }
 
     @Get(':id')
-    public getById(@Param('id') id: string): Promise<Series> {
+    public async getById(@Param('id') id: string): Promise<Series> {
         return this.seriesService.getById(id);
     }
 
     @Get()
-    public getAll(): Promise<Series[]> {
+    public async getAll(): Promise<Series[]> {
         return this.seriesService.getAll();
     }
 
     @Delete(':id')
-    public delete(@Param('id') id: string): Promise<Series> {
+    public async delete(@Param('id') id: string): Promise<Series> {
         return this.seriesService.delete(id);
     }
 }

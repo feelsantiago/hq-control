@@ -19,22 +19,24 @@ export class ComicController {
     }
 
     @Put(':id')
-    public update(@Param('id') id: string, @Body() comic: ComicDto): Promise<Comic> {
+    public async update(@Param('id') id: string, @Body() comic: ComicDto): Promise<Comic> {
         return this.comicService.update(id, comic);
     }
 
     @Get(':id')
-    public getById(@Param('id') id: string): Promise<Comic> {
+    public async getById(@Param('id') id: string): Promise<Comic> {
         return this.comicService.getById(id);
     }
 
     @Get()
-    public getAll(): Promise<Comic[]> {
+    public async getAll(): Promise<Comic[]> {
         return this.comicService.getAll();
     }
 
+    public async getComicByCollectionId(): Promise<Comic[]> {}
+
     @Delete(':id')
-    public delete(@Param('id') id: string): Promise<Comic> {
+    public async delete(@Param('id') id: string): Promise<Comic> {
         return this.comicService.delete(id);
     }
 }
