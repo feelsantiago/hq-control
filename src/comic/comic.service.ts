@@ -7,6 +7,10 @@ import { Comic, ComicDocument } from './comic.schema';
 
 @Injectable()
 export class ComicService {
+    public get comics(): Model<ComicDocument> {
+        return this.comicModel;
+    }
+
     constructor(
         @InjectModel(Comic.name) private readonly comicModel: Model<ComicDocument>,
         private readonly seriesService: SeriesService,

@@ -6,6 +6,10 @@ import { Series, SeriesDocument } from './series.schema';
 
 @Injectable()
 export class SeriesService {
+    public get series(): Model<SeriesDocument> {
+        return this.series;
+    }
+
     constructor(@InjectModel(Series.name) private readonly seriesModel: Model<SeriesDocument>) {}
 
     public async create(series: SeriesDto): Promise<Series> {

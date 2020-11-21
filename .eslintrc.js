@@ -94,6 +94,7 @@ module.exports = {
         'unicorn/no-for-loop': 'error',
         'no-plusplus': 'off',
         'unicorn/prevent-abbreviations': 'off',
+        'unicorn/no-reduce': 'off',
         'promise/prefer-await-to-then': 'warn',
     },
 };
