@@ -19,22 +19,26 @@ export class SeriesController {
     }
 
     @Put(':id')
-    public async update(@Param('id') id: string, @Body() series: SeriesDto): Promise<Series> {
-        return this.seriesService.update(id, series);
+    public async update(
+        @Param('id') id: string,
+        @Body() series: SeriesDto,
+        @UserSession() userInfo: UserInfo,
+    ): Promise<Series> {
+        return this.seriesService.update(id, series, userInfo.id);
     }
 
     @Get(':id')
-    public async getById(@Param('id') id: string): Promise<Series> {
-        return this.seriesService.getById(id);
+    public async getById(@Param('id') id: string, @UserSession() userInfo: UserInfo): Promise<Series> {
+        return this.seriesService.getById(id, userInfo.id);
     }
 
     @Get()
-    public async getAll(): Promise<Series[]> {
-        return this.seriesService.getAll();
+    public async getAll(@UserSession() userInfo: UserInfo): Promise<Series[]> {
+        return this.seriesService.getAll(userInfo.id);
     }
 
     @Delete(':id')
-    public async delete(@Param('id') id: string): Promise<Series> {
-        return this.seriesService.delete(id);
+    public async delete(@Param('id') id: string, @UserSession() userInfo: UserInfo): Promise<Series> {
+        return this.seriesService.delete(id, userInfo.id);
     }
 }

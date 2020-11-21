@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
 import { SeriesService } from '../series/series.service';
@@ -23,10 +23,14 @@ export class ComicService {
         }
 
         if (comic.series && comic.series._id) {
-            const series = await this.seriesService.getById(comic.series._id);
+            const series = await this.seriesService.getById(comic.series._id, comic.owner.toHexString());
+
+            if (!series) {
+                throw new UnauthorizedException('Nenhuma coleção encontrada!');
+            }
 
             if (comic.series.isCompleted && !series.isCompleted) {
-                await this.seriesService.update(series.id, { isCompleted: true });
+                await this.seriesService.update(series.id, { isCompleted: true }, comic.owner.toHexString());
                 series.isCompleted = true;
             }
 
