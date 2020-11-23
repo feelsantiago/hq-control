@@ -18,7 +18,7 @@ export class Purchase {
     @Prop()
     public series: string;
 
-    @Prop({ enum: ComicType, default: ComicType.physical })
+    @Prop({ enum: [ComicType.digital, ComicType.physical], default: ComicType.physical })
     public type: ComicType;
 
     @Prop({ required: true })
