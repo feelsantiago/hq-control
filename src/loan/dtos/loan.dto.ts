@@ -8,4 +8,6 @@ export class LoanDto {
     @IsString()
     @IsNotEmpty()
     public user: string;
+
+    public owner: string;
 }

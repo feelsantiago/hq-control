@@ -24,6 +24,10 @@ export class LoanService {
 
         const [comic, user] = await Promise.all([comicQuery, userQuery]);
 
+        if (comic.borrowed) {
+            throw new BadRequestException('Comic already bowered!');
+        }
+
         if (!comic) {
             throw new BadRequestException('Comic Not Found!');
         }
@@ -41,9 +45,15 @@ export class LoanService {
                 _id: user.id,
                 name: user.name,
             },
+            owner: Types.ObjectId(userId),
         };
 
-        return this.loans.create(newLoan as Loan);
+        const create = this.loans.create(newLoan as Loan);
+        const update = this.comicService.update(comic.id, { borrowed: true }, userId);
+
+        const [result] = await Promise.all([create, update]);
+
+        return result;
     }
 
     public async giveBack(id: string, userId: string): Promise<Loan> {
@@ -53,9 +63,15 @@ export class LoanService {
             throw new BadRequestException('Loan not found!');
         }
 
-        return this.loans
+        const updateLoan = this.loans
             .findOneAndUpdate({ _id: Types.ObjectId(loan.id) }, { $set: { returned: true } }, { new: true })
             .exec();
+
+        const updateComic = this.comicService.update(loan.comic._id, { borrowed: false }, userId);
+
+        const [result] = await Promise.all([updateLoan, updateComic]);
+
+        return result;
     }
 
     public async getById(id: string, userId: string): Promise<Loan> {

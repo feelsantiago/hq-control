@@ -35,7 +35,7 @@ export class Loan {
     )
     public user: BoweredUser;
 
-    @Prop()
+    @Prop({ required: true })
     public owner: Types.ObjectId;
 }
 
