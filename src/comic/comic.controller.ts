@@ -15,7 +15,7 @@ export class ComicController {
     @Post()
     public async create(
         @Body() comic: ComicDto,
-        @Query('purchase?') purchase: boolean,
+        @Query('purchase') purchase: boolean,
         @UserSession() userInfo: UserInfo,
     ): Promise<Comic> {
         comic.owner = Types.ObjectId(userInfo.id);

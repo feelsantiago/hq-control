@@ -49,7 +49,7 @@ export class ComicService {
                 owner: comic.owner,
                 price: comic.price,
                 type: comic.type,
-                series: comic?.series._id,
+                series: comic.series ? comic.series.name : undefined,
             };
 
             await this.purchaseService.create(purchaseInfo);
