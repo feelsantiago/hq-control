@@ -7,7 +7,7 @@ import { Series, SeriesDocument } from './series.schema';
 @Injectable()
 export class SeriesService {
     public get series(): Model<SeriesDocument> {
-        return this.series;
+        return this.seriesModel;
     }
 
     constructor(@InjectModel(Series.name) private readonly seriesModel: Model<SeriesDocument>) {}

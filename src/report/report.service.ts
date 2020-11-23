@@ -16,6 +16,7 @@ export class ReportService {
                 have: false,
                 owner: Types.ObjectId(userId),
             })
+            .lean()
             .exec();
 
         const seriesMap = new Map<string, Comic[]>();

@@ -1,0 +1,22 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "attach",
+            // Name for the debug configuration
+            "name": "Debug: hq-control",
+            // Change the path below to point to the service you want to debug
+            "localRoot": "${workspaceFolder}",
+            "protocol": "inspector",
+            // Change the port to point to the service you want to debug
+            "port": 9229,
+            "restart": true,
+            "address": "0.0.0.0",
+            "skipFiles": ["<node_internals>/**"]
+        }
+    ]
+}

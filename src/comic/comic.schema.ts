@@ -9,7 +9,7 @@ export enum ComicType {
 
 @Schema({ timestamps: true })
 export class Comic {
-    public id: string;
+    public id?: string;
 
     @Prop({ required: true })
     public name: string;
