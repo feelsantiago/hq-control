@@ -13,7 +13,7 @@ export class Purchase {
     public name: string;
 
     @Prop({ required: true })
-    public price: string;
+    public price: number;
 
     @Prop()
     public series: string;

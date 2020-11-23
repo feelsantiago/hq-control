@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { Types } from 'mongoose';
 import { UserInfo } from '../auth/types/user-info';
 import { UserSession } from '../auth/decorators/user-session.decorator';
@@ -13,9 +13,13 @@ export class ComicController {
     constructor(private readonly comicService: ComicService) {}
 
     @Post()
-    public async create(@Body() comic: ComicDto, @UserSession() userInfo: UserInfo): Promise<Comic> {
+    public async create(
+        @Body() comic: ComicDto,
+        @Query('purchase?') purchase: boolean,
+        @UserSession() userInfo: UserInfo,
+    ): Promise<Comic> {
         comic.owner = Types.ObjectId(userInfo.id);
-        return this.comicService.create(comic);
+        return this.comicService.create(comic, purchase);
     }
 
     @Put(':id')

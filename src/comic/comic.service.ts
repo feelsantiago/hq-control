@@ -1,6 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
+import { Purchase } from '../purchase/purchase.schema';
+import { PurchaseService } from '../purchase/purchase.service';
 import { SeriesService } from '../series/series.service';
 import { ComicDto } from './comic.dto';
 import { Comic, ComicDocument } from './comic.schema';
@@ -14,9 +16,10 @@ export class ComicService {
     constructor(
         @InjectModel(Comic.name) private readonly comicModel: Model<ComicDocument>,
         private readonly seriesService: SeriesService,
+        private readonly purchaseService: PurchaseService,
     ) {}
 
-    public async create(comic: ComicDto): Promise<Comic> {
+    public async create(comic: ComicDto, purchase = false): Promise<Comic> {
         if (comic.series && !comic.series._id) {
             const series = await this.seriesService.create(comic.series);
             comic.series._id = series.id;
@@ -37,7 +40,22 @@ export class ComicService {
             comic.series = series ? { _id: series.id, name: series.name, isCompleted: series.isCompleted } : undefined;
         }
 
-        return this.comics.create(comic);
+        const result = await this.comics.create(comic);
+
+        if (purchase) {
+            const purchaseInfo: Purchase = {
+                comic: Types.ObjectId(result.id),
+                name: comic.name,
+                owner: comic.owner,
+                price: comic.price,
+                type: comic.type,
+                series: comic?.series._id,
+            };
+
+            await this.purchaseService.create(purchaseInfo);
+        }
+
+        return result;
     }
 
     public update(id: string, comic: Partial<ComicDto>, userId: string): Promise<Comic> {
