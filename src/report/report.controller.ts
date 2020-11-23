@@ -5,8 +5,8 @@ import { JwtGuard } from '../auth/guards/jwt.guard';
 import { ReportService } from './report.service';
 import { UnCompletedSeriesReport } from './types/uncompleted-series-report';
 
-@Controller('report')
 @UseGuards(JwtGuard)
+@Controller('report')
 export class ReportController {
     constructor(private readonly reportService: ReportService) {}
 

@@ -2,7 +2,8 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose/dist/mongoose.module';
 import { AuthModule } from './auth/auth.module';
 import { ComicModule } from './comic/comic.module';
-import { ReportController } from './report/report.controller';
+import { LoanModule } from './loan/loan.module';
+import { ReportModule } from './report/report.module';
 import { SeriesModule } from './series/series.module';
 import { UserModule } from './user/user.module';
 
@@ -13,7 +14,8 @@ import { UserModule } from './user/user.module';
         UserModule,
         ComicModule,
         SeriesModule,
-        ReportController,
+        LoanModule,
+        ReportModule,
     ],
     controllers: [],
     providers: [],

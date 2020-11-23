@@ -1,10 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { JwtGuard } from '../auth/guards/jwt.guard';
 import { UserSession } from '../auth/decorators/user-session.decorator';
 import { UserInfo } from '../auth/types/user-info';
 import { LoanDto } from './dtos/loan.dto';
 import { Loan } from './loan.schema';
 import { LoanService } from './loan.service';
 
+@UseGuards(JwtGuard)
 @Controller('loan')
 export class LoanController {
     constructor(private readonly loanService: LoanService) {}
