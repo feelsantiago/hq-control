@@ -24,16 +24,20 @@ export class LoanService {
 
         const [comic, user] = await Promise.all([comicQuery, userQuery]);
 
-        if (comic.borrowed) {
-            throw new BadRequestException('Comic already bowered!');
-        }
-
         if (!comic) {
             throw new BadRequestException('Comic Not Found!');
         }
 
         if (!user) {
             throw new BadRequestException('User Not Found!');
+        }
+
+        if (comic.borrowed) {
+            throw new BadRequestException('Comic already bowered!');
+        }
+
+        if (!comic.have) {
+            throw new BadRequestException("You don't have this comic!");
         }
 
         const newLoan: Partial<Loan> = {
@@ -79,7 +83,10 @@ export class LoanService {
     }
 
     public async getAll(userId: string): Promise<Loan[]> {
-        return this.loans.find({ owner: userId }).sort({ createdAt: -1 }).exec();
+        return this.loans
+            .find({ owner: Types.ObjectId(userId) })
+            .sort({ createdAt: -1 })
+            .exec();
     }
 
     public async delete(id: string, userId: string): Promise<Loan> {
