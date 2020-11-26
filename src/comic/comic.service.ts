@@ -21,11 +21,10 @@ export class ComicService {
 
     public async create(comic: ComicDto, purchase = false): Promise<Comic> {
         if (comic.series && !comic.series._id) {
+            comic.series.owner = comic.owner;
             const series = await this.seriesService.create(comic.series);
             comic.series._id = series.id;
-        }
-
-        if (comic.series && comic.series._id) {
+        } else if (comic.series && comic.series._id) {
             const series = await this.seriesService.getById(comic.series._id, comic.owner.toHexString());
 
             if (!series) {

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Types } from 'mongoose';
+import { SeriesDocument } from '../series/series.schema';
 import { Comic } from '../comic/comic.schema';
 import { ComicService } from '../comic/comic.service';
 import { SeriesService } from '../series/series.service';
@@ -21,10 +22,12 @@ export class ReportService {
 
         const seriesMap = new Map<string, Comic[]>();
         comics.forEach((comic) => {
-            if (seriesMap.has(comic.series.id)) {
-                seriesMap.get(comic.series.id).push(comic);
+            const _id = ((comic.series as SeriesDocument)._id as Types.ObjectId).toHexString();
+
+            if (seriesMap.has(_id)) {
+                seriesMap.get(_id).push(comic);
             } else {
-                seriesMap.set(comic.series.id, [comic]);
+                seriesMap.set(_id, [comic]);
             }
         });
 

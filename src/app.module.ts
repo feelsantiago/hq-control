@@ -10,7 +10,7 @@ import { UserModule } from './user/user.module';
 
 @Module({
     imports: [
-        MongooseModule.forRoot('mongodb://localhost/hq-control', { useCreateIndex: true, useFindAndModify: true }),
+        MongooseModule.forRoot('mongodb://localhost/hq-control', { useCreateIndex: true, useFindAndModify: false }),
         AuthModule,
         UserModule,
         ComicModule,
