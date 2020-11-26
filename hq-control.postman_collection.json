@@ -1,0 +1,350 @@
+{
+	"info": {
+		"_postman_id": "3a880650-1465-4514-a4e3-154494e02c53",
+		"name": "hq-control",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CREATE COMIC",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Sandman\",\n    \"publisher\": \"DC\",\n    \"price\": 100,\n    \"type\": \"Fisico\",\n    \"have\": true,\n    \"like\": true,\n    \"recommends\": true,\n    \"owner\": \"5f7c696ac46ab5004b989fd5\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/comic?purchase=true",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comic"
+					],
+					"query": [
+						{
+							"key": "purchase",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE COMIC WITH SERIES",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Watchamen 1\",\n    \"publisher\": \"DC\",\n    \"price\": 100,\n    \"type\": \"Digital\",\n    \"have\": false,\n    \"like\": true,\n    \"recommends\": true,\n    \"owner\": \"5f7c696ac46ab5004b989fd5\",\n    \"series\": {\n        \"_id\": \"5fbfa9dc97c486058c64f3d6\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/comic",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comic"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE SERIES",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Crises Nas Infinitas Terras\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/series",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"series"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET COMICS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/comic",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"comic"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SERIES",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/series",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"series"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PURCHASES",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/purchase",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"purchase"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SIGNUP",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":  \"Filipe Santiago\",\n    \"email\": \"filipe@test.com\",\n    \"password\": \"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/auth/signup",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SIGNIN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"filipe@test.com\",\n    \"password\": \"123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/auth/signin",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "REPORT UNFINISHED SERIES",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/report/series/uncompleted",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"report",
+						"series",
+						"uncompleted"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "COMPLETE SERIES",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_id\": \"5fbc067c090f481354f8ddc4\",\n    \"isCompleted\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/series/5fbc067c090f481354f8ddc4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"series",
+						"5fbc067c090f481354f8ddc4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOAN COMIC",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comic\": \"5fbeedbcd07ebe89a33544d7\",\n    \"user\": \"5fbef1cd02d6838be53bc3f5\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/loan",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"loan"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GIVEBACK COMIC",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/loan/5fbc3c8577807119904b6ef3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"loan",
+						"5fbc3c8577807119904b6ef3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOANS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/loan",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"loan"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "bb055b95-35b1-4594-afde-3e7f2fc3b5f6",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "df502331-9d4f-43d2-82e0-1f01b7687ba8",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "e326b260-b16b-4c6e-a749-6d990d5e0e82",
+			"key": "url",
+			"value": ""
+		},
+		{
+			"id": "632867fb-6a3a-4e99-8078-1a011a7df470",
+			"key": "token",
+			"value": ""
+		}
+	],
+	"protocolProfileBehavior": {}
+}
